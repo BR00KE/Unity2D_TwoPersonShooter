@@ -5,6 +5,11 @@ using UnityEngine;
 public class SpiderScript : MonoBehaviour
 {
     public float speed;
+    public float range;
+
+    private readonly float directionChangeTime = 3f;
+    private float elapsedTimeLastChange;
+    Vector2 movementDirection;
     List<GameObject> players = new List<GameObject>(2);
     // Start is called before the first frame update
 
@@ -15,28 +20,39 @@ public class SpiderScript : MonoBehaviour
             if(player.tag=="Player"&&!players.Contains(player))
                 players.Add(player);
         }
+        elapsedTimeLastChange =0f;
+        movementDirection = new Vector2(0,0);
     }
 
     // Update is called once per frame
     void Update()
     {
+        fleeClosestPlayer();
         
-        GameObject closestPlayer = findClosestPlayer();
-        
-        //multiplication by negative one will cause spider to flee instead of approach
-        transform.position = Vector2.MoveTowards(transform.position, closestPlayer.transform.position, -1 * speed * Time.deltaTime);
     }
 
-    public GameObject findClosestPlayer(){
+    public void fleeClosestPlayer(){
 
         float distanceToP1 = Vector3.Distance(players[0].transform.position,transform.position);
         float distanceToP2 = Vector3.Distance(players[1].transform.position,transform.position);
 
-        if(distanceToP1<distanceToP2){
-            return players[0];
+        //Flee closest player
+        if(distanceToP1<distanceToP2 && distanceToP1<range){
+            //multiplication by negative one will cause spider to flee instead of approach
+            transform.position = Vector2.MoveTowards(transform.position, players[0].transform.position, -1 * speed * Time.deltaTime);
         }
+        else if(distanceToP2<=distanceToP1 && distanceToP2<range){
+            transform.position = Vector2.MoveTowards(transform.position, players[1].transform.position, -1 * speed * Time.deltaTime);
+        }
+        //Move Randomly
         else{
-            return players[1];
+            
+                if(elapsedTimeLastChange>directionChangeTime){
+                movementDirection = new Vector2(Random.Range(-1.0f,1.0f),Random.Range(-1.0f,1.0f)).normalized;
+                
+                elapsedTimeLastChange=0f;
+            }
+            transform.position = new Vector2(transform.position.x+(movementDirection.x*speed*Time.deltaTime),transform.position.y+(movementDirection.y*speed*Time.deltaTime));
         }
 
     }
