@@ -9,12 +9,12 @@ public class PlayerMovement : MonoBehaviour
     List<GameObject> players = new List<GameObject>(2);
 
     //sprite direction
-        int xdirectionP2 =1;
         int ydirectionP2 =1;
         //float zrotationP2 = 0;
 
-        int xdirectionP1 =1;
         int ydirectionP1 =1;
+        Quaternion rotationP1 = Quaternion.Euler(0,0,0);
+        Quaternion rotationP2;
 
     // Start is called before the first frame update
     void Start()
@@ -34,19 +34,25 @@ public class PlayerMovement : MonoBehaviour
         //Assign Arrow keys for player 1
         if(Input.GetKey(KeyCode.LeftArrow)){
             players[0].transform.Translate(Vector3.left*speed*Time.deltaTime);
+            //rotationP1 = Quaternion.Euler(0,0,-90);
         }
         if(Input.GetKey(KeyCode.RightArrow)){
             players[0].transform.Translate(Vector3.right*speed*Time.deltaTime);
+            //rotationP1 = Quaternion.Euler(0,0,90);
         }
         if(Input.GetKey(KeyCode.UpArrow)){
             players[0].transform.Translate(Vector3.up*speed*Time.deltaTime);
             ydirectionP1=-1;
+            //rotationP1 = Quaternion.Euler(0,0,0);
         } 
         if(Input.GetKey(KeyCode.DownArrow)){
             players[0].transform.Translate(Vector3.down*speed*Time.deltaTime);
             ydirectionP1=1;
+            //rotationP1 = Quaternion.Euler(0,0,0);
         }
-        players[0].transform.localScale = new Vector2(xdirectionP1,ydirectionP1);
+        
+        players[0].transform.localScale = new Vector2(1,ydirectionP1);
+        //players[0].transform.localRotation = rotationP1;
         
         //Assign WASD keys for player 2
         if(Input.GetKey(KeyCode.A)){
@@ -66,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
             //zrotationP2=0;
         }
 
-        players[1].transform.localScale = new Vector2(xdirectionP2,ydirectionP2);
+        players[1].transform.localScale = new Vector2(1,ydirectionP2);
         //players[1].transform.localRotation = new Quaternion(0f,0f,zrotationP2);
     }
 }
