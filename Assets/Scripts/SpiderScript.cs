@@ -8,19 +8,18 @@ public class SpiderScript : MonoBehaviour
     public float range;
 
     private readonly float directionChangeTime = 3f;
-    private float elapsedTimeLastChange;
+    private float latestDirectionChangeTime;
     Vector2 movementDirection;
     List<GameObject> players = new List<GameObject>(2);
+
     // Start is called before the first frame update
-
-
     void Start()
     {
         foreach(GameObject player in GameObject.FindObjectsOfType (typeof(GameObject))){
             if(player.tag=="Player"&&!players.Contains(player))
                 players.Add(player);
         }
-        elapsedTimeLastChange =0f;
+        latestDirectionChangeTime =Time.time;
         movementDirection = new Vector2(0,0);
     }
 
@@ -47,10 +46,10 @@ public class SpiderScript : MonoBehaviour
         //Move Randomly
         else{
             
-                if(elapsedTimeLastChange>directionChangeTime){
+            if(Time.time - latestDirectionChangeTime>directionChangeTime){
                 movementDirection = new Vector2(Random.Range(-1.0f,1.0f),Random.Range(-1.0f,1.0f)).normalized;
                 
-                elapsedTimeLastChange=0f;
+                latestDirectionChangeTime=Time.time;
             }
             transform.position = new Vector2(transform.position.x+(movementDirection.x*speed*Time.deltaTime),transform.position.y+(movementDirection.y*speed*Time.deltaTime));
         }
