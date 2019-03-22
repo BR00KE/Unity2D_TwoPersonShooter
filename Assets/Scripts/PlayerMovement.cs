@@ -74,5 +74,8 @@ public class PlayerMovement : MonoBehaviour
 
         players[1].transform.localScale = new Vector2(1,ydirectionP2);
         //players[1].transform.localRotation = new Quaternion(0f,0f,zrotationP2);
+
+        //stop players leaving the game area
+        //playerSkeleton[0].position
     }
 }
