@@ -55,4 +55,11 @@ public class SpiderScript : MonoBehaviour
         }
 
     }
+/* 
+    void OnTriggerEnter(Collider other){
+
+        Destroy(other.gameObject); //destroy bullet
+        gameObject.SetActive(false);
+    }
+*/
 }
