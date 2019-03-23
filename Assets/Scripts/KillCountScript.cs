@@ -25,12 +25,19 @@ public class KillCountScript : MonoBehaviour
         setKillCountDisplay();
 
         if(Mathf.Ceil(killCount)>=10){
-            endText.text = "LEVEL PASSED";
-            FindObjectOfType<SceneManagementScript>().endScene();
+            Debug.Log("end condition");
+            StartCoroutine("callToEndScene");
         }
     }
 
     void setKillCountDisplay(){
         KillCountText.text = "Spiders Killed: "+Mathf.Ceil(killCount).ToString()+"/10";
+    }
+
+    IEnumerator callToEndScene(){
+        Debug.Log("got to wait");
+        endText.text = "LEVEL PASSED";
+        yield return new WaitForSeconds(4);
+        FindObjectOfType<SceneManagementScript>().endScene();
     }
 }
