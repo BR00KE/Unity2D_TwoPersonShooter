@@ -58,11 +58,12 @@ public class SpiderScript : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other){
         if(other.gameObject.CompareTag("Bullet")){
-            Debug.Log("got to on trigger enter spider");
+            //Debug.Log("got to on trigger enter spider");
             Destroy(other.gameObject); //destroy bullet
             //send message to increment KillCount
             this.SendMessageUpwards("incrementKillCount");
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
+            Destroy(this.gameObject);
         }
     }
 
