@@ -17,12 +17,16 @@ public class KillCountScript : MonoBehaviour
         setKillCountDisplay();
     }
 
+    void Update(){
+        killCount=Mathf.Ceil(killCount);
+    }
     void incrementKillCount(){
         killCount+=0.5f;
         setKillCountDisplay();
 
         if(Mathf.Ceil(killCount)>=10){
             endText.text = "LEVEL PASSED";
+            FindObjectOfType<SceneManagementScript>().endScene();
         }
     }
 
