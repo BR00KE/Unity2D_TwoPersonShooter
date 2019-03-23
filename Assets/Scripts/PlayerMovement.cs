@@ -8,14 +8,6 @@ public class PlayerMovement : MonoBehaviour
     public GameObject playerSkeleton;
     List<GameObject> players = new List<GameObject>(2);
 
-    //sprite direction
-        int ydirectionP2 =1;
-        //float zrotationP2 = 0;
-
-        int ydirectionP1 =1;
-        Quaternion rotationP1 = Quaternion.Euler(0,0,0);
-        Quaternion rotationP2;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -33,49 +25,39 @@ public class PlayerMovement : MonoBehaviour
 
         //Assign Arrow keys for player 1
         if(Input.GetKey(KeyCode.LeftArrow)){
-            players[0].transform.Translate(Vector3.left*speed*Time.deltaTime);
-            //rotationP1 = Quaternion.Euler(0,0,-90);
+            players[0].transform.rotation = Quaternion.LookRotation(players[0].transform.forward,Vector2.right);
+            players[0].transform.position += (new Vector3(-1,0,0))*Time.deltaTime*speed;
         }
         if(Input.GetKey(KeyCode.RightArrow)){
-            players[0].transform.Translate(Vector3.right*speed*Time.deltaTime);
-            //rotationP1 = Quaternion.Euler(0,0,90);
+            players[0].transform.rotation=Quaternion.LookRotation(players[0].transform.forward,Vector2.left);
+            players[0].transform.position += (new Vector3(1,0,0))*Time.deltaTime*speed;
         }
         if(Input.GetKey(KeyCode.UpArrow)){
-            players[0].transform.Translate(Vector3.up*speed*Time.deltaTime);
-            ydirectionP1=-1;
-            //rotationP1 = Quaternion.Euler(0,0,0);
+            players[0].transform.rotation=Quaternion.LookRotation(players[0].transform.forward,Vector2.down);
+            players[0].transform.position += (new Vector3(0,1,0))*Time.deltaTime*speed;
         } 
         if(Input.GetKey(KeyCode.DownArrow)){
-            players[0].transform.Translate(Vector3.down*speed*Time.deltaTime);
-            ydirectionP1=1;
-            //rotationP1 = Quaternion.Euler(0,0,0);
+            players[0].transform.rotation=Quaternion.LookRotation(players[0].transform.forward,Vector2.up);
+            players[0].transform.position += (new Vector3(0,-1,0))*Time.deltaTime*speed;
         }
-        
-        players[0].transform.localScale = new Vector2(1,ydirectionP1);
-        //players[0].transform.localRotation = rotationP1;
-        
+
         //Assign WASD keys for player 2
         if(Input.GetKey(KeyCode.A)){
-            players[1].transform.Translate(Vector3.left*speed*Time.deltaTime);
+            players[1].transform.rotation = Quaternion.LookRotation(players[0].transform.forward,Vector2.right);
+            players[1].transform.position += (new Vector3(-1,0,0))*Time.deltaTime*speed;
         }
         if(Input.GetKey(KeyCode.D)){
-            players[1].transform.Translate(Vector3.right*speed*Time.deltaTime);
+            players[1].transform.rotation=Quaternion.LookRotation(players[0].transform.forward,Vector2.left);
+            players[1].transform.position += (new Vector3(1,0,0))*Time.deltaTime*speed;
         }
         if(Input.GetKey(KeyCode.W)){
-            players[1].transform.Translate(Vector3.up*speed*Time.deltaTime);
-            ydirectionP2=-1;
-            //zrotationP2=0;
+            players[1].transform.rotation=Quaternion.LookRotation(players[0].transform.forward,Vector2.down);
+            players[1].transform.position += (new Vector3(0,1,0))*Time.deltaTime*speed;
         } 
         if(Input.GetKey(KeyCode.S)){
-            players[1].transform.Translate(Vector3.down*speed*Time.deltaTime);
-            ydirectionP2=1;
-            //zrotationP2=0;
+            players[1].transform.rotation=Quaternion.LookRotation(players[0].transform.forward,Vector2.up);
+            players[1].transform.position += (new Vector3(0,-1,0))*Time.deltaTime*speed;
         }
 
-        players[1].transform.localScale = new Vector2(1,ydirectionP2);
-        //players[1].transform.localRotation = new Quaternion(0f,0f,zrotationP2);
-
-        //stop players leaving the game area
-        //playerSkeleton[0].position
     }
 }
