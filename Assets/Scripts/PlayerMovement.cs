@@ -5,16 +5,14 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float speed =3;
-    public GameObject PlayerSkeleton;
+    //public GameObject PlayerSkeleton;
     List<GameObject> players = new List<GameObject>(2);
 
     private Vector3 P1direction = new Vector3(0,-1,0);
-    float lastShotP1 =0f;
-    private Vector3 P2direction=new Vector3(0,-1,0);
-
+    private Vector3 P2direction = new Vector3(0,-1,0);
     //Variables for shooting
     public GameObject ToothShot; //prefab
-    public GameObject ToothShotOrigin; //from whence the tooth is spat
+    //public GameObject ToothShotOrigin; //from whence the tooth is spat
 
     //private int P1bullet;
 
@@ -26,12 +24,12 @@ public class PlayerMovement : MonoBehaviour
             if(player.tag=="Player"&&!players.Contains(player))
                 players.Add(player);
         }
-        //P1bullet=1;
     }
     
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log("top of update");
         //Assign Arrow keys for player 1
         if(Input.GetKey(KeyCode.LeftArrow)){
             players[0].transform.rotation = Quaternion.LookRotation(players[0].transform.forward,Vector2.right);
@@ -57,34 +55,43 @@ public class PlayerMovement : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.M)){
             
             //instantiate tooth projectile
-            if(lastShotP1!=Time.time){
-                GameObject toothBullet = (GameObject)Instantiate(ToothShot);
-                toothBullet.transform.position = players[0].transform.GetChild(0).transform.position;
-                toothBullet.SendMessage("theDirection", P1direction);
-                lastShotP1=Time.time;
-            }
+            GameObject toothBullet = (GameObject)Instantiate(ToothShot);
+            toothBullet.transform.position = players[0].transform.GetChild(0).position;
+            toothBullet.transform.rotation = players[0].transform.GetChild(0).rotation;
+            toothBullet.SendMessage("theDirection", P1direction);
         }
 
         //Assign WASD keys for player 2
         if(Input.GetKey(KeyCode.A)){
             players[1].transform.rotation = Quaternion.LookRotation(players[0].transform.forward,Vector2.right);
-            players[1].transform.position += (new Vector3(-1,0,0))*Time.deltaTime*speed;
+            P2direction = new Vector3(-1,0,0);
+            players[1].transform.position += P2direction*Time.deltaTime*speed;
         }
         if(Input.GetKey(KeyCode.D)){
             players[1].transform.rotation=Quaternion.LookRotation(players[0].transform.forward,Vector2.left);
-            players[1].transform.position += (new Vector3(1,0,0))*Time.deltaTime*speed;
+            P2direction = new Vector3(1,0,0);
+            players[1].transform.position += P2direction*Time.deltaTime*speed;
         }
         if(Input.GetKey(KeyCode.W)){
             players[1].transform.rotation=Quaternion.LookRotation(players[0].transform.forward,Vector2.down);
-            players[1].transform.position += (new Vector3(0,1,0))*Time.deltaTime*speed;
+            P2direction = new Vector3(0,1,0);
+            players[1].transform.position += P2direction*Time.deltaTime*speed;
         } 
         if(Input.GetKey(KeyCode.S)){
             players[1].transform.rotation=Quaternion.LookRotation(players[0].transform.forward,Vector2.up);
-            players[1].transform.position += (new Vector3(0,-1,0))*Time.deltaTime*speed;
+            P2direction = new Vector3(0,-1,0);
+            players[1].transform.position += P2direction*Time.deltaTime*speed;
         }
         //for player 2 fire tooth(bullet) when f is pressed
+        if(Input.GetKeyDown(KeyCode.F)){
+            //instantiate tooth projectile
+            //Debug.Log("player 2 spat tooth begin");
+            GameObject toothBullet = (GameObject)Instantiate(ToothShot);
+            toothBullet.SendMessage("theDirection", P2direction); 
+            toothBullet.transform.position = players[1].transform.GetChild(0).position;
+            toothBullet.transform.rotation = players[1].transform.GetChild(0).rotation;
+            //Debug.Log("player 2 spat tooth end");
+        }
 
-
-        //P1bullet=0;
     }
 }

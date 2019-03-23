@@ -15,7 +15,7 @@ public class ToothShotScript : MonoBehaviour
     void Start()
     {
         //theDirection(new Vector2(0,1)); testing
-        speed = 8f;
+        speed = 9f;
     }
 
     // Update is called once per frame
