@@ -26,7 +26,7 @@ public class KillCountScript : MonoBehaviour
 
         if(Mathf.Ceil(killCount)>=10){
             Debug.Log("end condition");
-            StartCoroutine("callToEndScene");
+            StartCoroutine("callToEndSceneSuccess");
         }
     }
 
@@ -34,7 +34,7 @@ public class KillCountScript : MonoBehaviour
         KillCountText.text = "Spiders Killed: "+Mathf.Ceil(killCount).ToString()+"/10";
     }
 
-    IEnumerator callToEndScene(){
+    IEnumerator callToEndSceneSuccess(){
         Debug.Log("got to wait");
         endText.text = "LEVEL PASSED";
         yield return new WaitForSeconds(4);

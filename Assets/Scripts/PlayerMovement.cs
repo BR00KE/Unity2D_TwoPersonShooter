@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed =3;
+    public float speed ;
     //public GameObject PlayerSkeleton;
     List<GameObject> players = new List<GameObject>(2);
 

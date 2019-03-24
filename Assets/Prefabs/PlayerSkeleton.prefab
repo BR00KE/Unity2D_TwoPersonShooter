@@ -143,11 +143,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2185d11e4eafc44c89b4e33734630b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  PlayerSkeleton: {fileID: 0}
+  speed: 4
   ToothShot: {fileID: 3833434742771709100, guid: 7cf64afa1b516e84cad92237e323529b,
     type: 3}
-  ToothShotOrigin: {fileID: 7132159621611105738}
 --- !u!95 &7039114494977132418
 Animator:
   serializedVersion: 3
