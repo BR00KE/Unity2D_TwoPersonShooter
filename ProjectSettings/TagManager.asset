@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Spider
   - Bullet
+  - BigSpider1
+  - BigSpider2
   layers:
   - Default
   - TransparentFX
