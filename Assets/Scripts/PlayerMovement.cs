@@ -12,9 +12,6 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 P2direction = new Vector3(0,-1,0);
     //Variables for shooting
     public GameObject ToothShot; //prefab
-    //public GameObject ToothShotOrigin; //from whence the tooth is spat
-
-    //private int P1bullet;
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +26,6 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log("top of update");
         //Assign Arrow keys for player 1
         if(Input.GetKey(KeyCode.LeftArrow)){
             players[0].transform.rotation = Quaternion.LookRotation(players[0].transform.forward,Vector2.right);
@@ -51,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
             P1direction=new Vector3(0,-1,0);
             players[0].transform.position+=P1direction*speed*Time.deltaTime;
         }
-        //for player 1 fire tooth(bullet) when enter pressed
+        //for player 1 fire tooth(bullet) when m pressed
         if(Input.GetKeyDown(KeyCode.M)){
             
             //instantiate tooth projectile
@@ -85,12 +81,10 @@ public class PlayerMovement : MonoBehaviour
         //for player 2 fire tooth(bullet) when f is pressed
         if(Input.GetKeyDown(KeyCode.F)){
             //instantiate tooth projectile
-            //Debug.Log("player 2 spat tooth begin");
             GameObject toothBullet = (GameObject)Instantiate(ToothShot);
             toothBullet.SendMessage("theDirection", P2direction); 
             toothBullet.transform.position = players[1].transform.GetChild(0).position;
             toothBullet.transform.rotation = players[1].transform.GetChild(0).rotation;
-            //Debug.Log("player 2 spat tooth end");
         }
 
     }

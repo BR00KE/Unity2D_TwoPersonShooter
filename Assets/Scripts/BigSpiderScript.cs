@@ -26,10 +26,6 @@ public class BigSpiderScript : MonoBehaviour
             transform.position = Vector2.MoveTowards(transform.position, player2.transform.position, 1 * speed * Time.deltaTime);
         }
 
-        //if both players are disabled end level
-        if(!player1.activeSelf&&!player2.activeSelf){
-            StartCoroutine("callToEndSceneFailed");
-        }
     }
 
     void OnTriggerEnter2D(Collider2D other){
@@ -44,6 +40,10 @@ public class BigSpiderScript : MonoBehaviour
         if(col.gameObject.CompareTag("Player")){
             col.gameObject.SetActive(false);
             //Debug.Log("player disabled");
+        }
+        //if both players are disabled end level
+        if(!player1.activeSelf&&!player2.activeSelf){
+            StartCoroutine("callToEndSceneFailed");
         }
     }
 
