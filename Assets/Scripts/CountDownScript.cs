@@ -49,7 +49,6 @@ public class CountDownScript : MonoBehaviour
         players[1].SetActive(false);
         players[0].SetActive(false);
 
-        Debug.Log("got to wait");
         endText.text = "LEVEL FAILED";
         yield return new WaitForSeconds(4);
         FindObjectOfType<SceneManagementScript>().endScene();
